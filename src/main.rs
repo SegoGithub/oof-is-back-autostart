@@ -11,11 +11,12 @@ fn main() {
     }
 
     fn check_ver() {
+        static USERNAME: &str = "USERNAME";
         // list all the files in %localappdata%\Roblox\Versions
         let mut versions = vec![];
         for entry in fs::read_dir(
             "C:\\Users\\".to_string()
-                + &env::var("USERNAME").unwrap()
+                + &env::var(USERNAME).unwrap()
                 + "\\AppData\\Local\\Roblox\\Versions",
         )
         .unwrap()
@@ -39,7 +40,7 @@ fn main() {
                     // copy %appdata%\oof-is-back\ouch.ogg to version\content\sounds\ouch.ogg
                     fs::copy(
                         "C:\\Users\\".to_string()
-                            + &env::var("USERNAME").unwrap()
+                            + &env::var(USERNAME).unwrap()
                             + "\\AppData\\Roaming\\oof-is-back\\ouch.ogg",
                         version.clone() + "\\content\\sounds\\ouch.ogg",
                     );
@@ -51,7 +52,7 @@ fn main() {
                         .summary("Oof is back!")
                         .body("Your oof sound was replaced by Roblox Updates. Please restart Roblox for the old oof sound to take effect.")
                         .icon(&("C:\\Users\\".to_string()
-                            + &env::var("USERNAME").unwrap()
+                            + &env::var(USERNAME).unwrap()
                             + "\\AppData\\Roaming\\oof-is-back\\icon.png")
                         )
                         .timeout(0) // this however is
