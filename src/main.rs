@@ -1,10 +1,13 @@
+#![cfg_attr(
+    all(not(debug_assertions), target_os = "windows"),
+    windows_subsystem = "windows"
+ )]
+
 use notify_rust::Notification;
 use std::{env, fs, time::Duration, thread::sleep};
 
-fn main() {
-    print!("Welcome to Oof is back! rust (autostart)\nThis app prevents Roblox Updates from changing your oof sound");
-    println!("\nYou can minimize this windows, but dont close it.");
 
+fn main() {
     loop {
         check_ver();
         sleep(Duration::from_secs(30));
@@ -33,8 +36,6 @@ fn main() {
             if fs::metadata(version.clone() + "\\RobloxPlayerBeta.exe").is_ok() {
                 // check if .ouch exists
                 if fs::metadata(version.clone() + "\\content\\sounds\\.ouch").is_err() {
-                    // print the version
-                    println!("Oof sound was replaced by Roblox Updates");
                     // delete ouch.ogg
                     fs::remove_file(version.clone() + "\\content\\sounds\\ouch.ogg").unwrap();
                     // copy %appdata%\oof-is-back\ouch.ogg to version\content\sounds\ouch.ogg
@@ -47,7 +48,6 @@ fn main() {
                     // make an empty file named ouch.ogg
                     fs::File::create(version.clone() + "\\content\\sounds\\.ouch").unwrap();
                     // windows notification
-                    println!("Oof sound replaced with old one, game restart required");
                     Notification::new()
                         .summary("Oof is back!")
                         .body("Your oof sound was replaced by Roblox Updates. Please restart Roblox for the old oof sound to take effect.")
