@@ -72,7 +72,6 @@ fn check_ver() {
     versions.reverse();
     // print the list of versions
     for version in versions {
-        println!("{}", version);
         // check if RobloxPlayerBeta.exe exists
         if fs::metadata(version.clone() + "/RobloxPlayerBeta.exe").is_ok() {
             // check if .ouch exists
