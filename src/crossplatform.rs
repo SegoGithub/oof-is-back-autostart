@@ -80,21 +80,19 @@ pub fn check_ver() {
                 fs::remove_file(version.clone() + "/content/sounds/ouch.ogg").unwrap();
                 // copy %appdata%\oof-is-back\ouch.ogg to version\content\sounds\ouch.ogg
                 fs::copy(
-                    "/home/".to_string() + &whoami::username() + &"/.oof-is-back/ouch.ogg".to_string(),
+                    "/usr/bin/oof-is-back/ouch.ogg".to_string(),
                     version.clone() + &"/content/sounds/ouch.ogg".to_string(),
-                );
-                // make an empty file named ouch.ogg
+                ).unwrap();
+                // make an empty file named .ouch
                 fs::File::create(version.clone() + "/content/sounds/.ouch").unwrap();
                 // windows notification
                 Notification::new()
                         .summary("Oof is back!")
                         .body("Your oof sound was replaced by Roblox Updates. Please restart Roblox for the old oof sound to take effect.")
-                        .icon(&("/home/".to_string()
-                            + &whoami::username()
-                            + "/.oof-is-back/icon.png")
+                        .icon(&("/usr/bin/oof-is-back/icon.png")
                         )
-                        .timeout(0) // this however is
-                        .show();
+                        .timeout(0)
+                        .show().unwrap();
             }
         }
     }
